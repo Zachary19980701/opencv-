@@ -1,0 +1,26 @@
+import cv2
+
+
+clicked=False
+def onMouse(event,x,y,flags,param):
+ global clicked
+ if event ==cv2.EVENT_LBUTTONUP:
+   clicked = True
+
+
+cp=cv2.VideoCapture(0)
+cv2.namedWindow('mywindow')
+cv2.setMouseCallback('mywidow',onMouse)
+
+
+print ('Showing camera feed. Click window or press any key to stop.')              
+success, frame = cp.read()
+while success and cv2.waitKey(1) == -1 and not clicked:#waitKey()的参数为等待键盘触发的时间，单位为毫秒，
+
+ cv2.imshow('mywindow',frame)
+ success,frame = cp.read()
+
+
+cv2.destroyWindow('mywindow')
+
+cp.release()
